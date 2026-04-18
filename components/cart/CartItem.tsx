@@ -1,3 +1,4 @@
+import Link from "next/link";
 'use client';
 
 import Image from 'next/image';
@@ -29,8 +30,7 @@ export function CartItem({ item, onUpdateQuantity, onRemove }: CartItemProps) {
 
   return (
     <div className="flex gap-4 py-4 border-b border-gray-100">
-      <a
-        href={`/product/${item.product.slug}`}
+      <Link href={`/product/${item.product.slug}`}
         className="relative w-24 h-24 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0"
       >
         <Image
@@ -39,18 +39,17 @@ export function CartItem({ item, onUpdateQuantity, onRemove }: CartItemProps) {
           fill
           className="object-cover hover:scale-105 transition-transform"
         />
-      </a>
+      </Link>
       
       <div className="flex-1 min-w-0">
         <div className="flex justify-between items-start">
           <div>
             <p className="text-sm text-gray-500">{item.product.categories?.name}</p>
-            <a
-              href={`/product/${item.product.slug}`}
+            <Link href={`/product/${item.product.slug}`}
               className="font-medium text-gray-900 hover:text-accent transition-colors line-clamp-1"
             >
               {item.product.name}
-            </a>
+            </Link>
             {item.variant && (
               <p className="text-sm text-gray-500">{item.variant.name}</p>
             )}

@@ -81,6 +81,7 @@ export default async function ProductPage(props: { params: Promise<{ handle: str
             </div>
 
 <AddToCartForm 
+              productId={product.id}
               variants={variants.filter(v => v.is_active).map(v => {
                 // Parse option_values JSON (format: [{"name":"Color","value":"Black"},{"name":"Size","value":"42"}])
                 let selectedOptions: { name: string; value: string }[] = [];

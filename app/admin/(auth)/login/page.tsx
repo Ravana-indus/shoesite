@@ -1,3 +1,4 @@
+import Link from "next/link";
 'use client';
 
 import { useState } from 'react';
@@ -139,9 +140,9 @@ export default function AdminLoginPage() {
         </p>
 
         <p className="text-center text-xs text-on-surface-variant mt-2">
-          <a href="/" className="hover:text-primary transition-colors">
+          <Link href="/" className="hover:text-primary transition-colors">
             ← Back to Store
-          </a>
+          </Link>
         </p>
       </div>
     </div>

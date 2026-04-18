@@ -1,3 +1,4 @@
+import Link from "next/link";
 'use client';
 
 import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
@@ -107,10 +108,10 @@ export function NewArrivals({ products = [] }: { products?: Product[] }) {
               </button>
             </div>
             <div className="hidden lg:block h-12 w-px bg-gray-200 mx-2" />
-            <a href="/collections/new-arrivals" className="hidden lg:flex items-center text-sm font-display font-bold uppercase tracking-widest hover:text-(--color-accent) transition-colors group">
+            <Link href="/collections/new-arrivals" className="hidden lg:flex items-center text-sm font-display font-bold uppercase tracking-widest hover:text-(--color-accent) transition-colors group">
               View All
               <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-            </a>
+            </Link>
           </div>
         </div>
 

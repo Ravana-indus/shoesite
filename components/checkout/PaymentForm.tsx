@@ -1,3 +1,4 @@
+import Link from "next/link";
 'use client';
 
 import { useState } from 'react';
@@ -82,9 +83,9 @@ export function PaymentForm({ orderSummary, onBack, onPay, isProcessing }: Payme
         />
         <span className="text-sm text-gray-600">
           I agree to the{' '}
-          <a href="/terms" className="underline hover:text-black">Terms of Service</a>
+          <Link href="/terms" className="underline hover:text-black">Terms of Service</Link>
           {' '}and{' '}
-          <a href="/privacy" className="underline hover:text-black">Privacy Policy</a>
+          <Link href="/privacy" className="underline hover:text-black">Privacy Policy</Link>
         </span>
       </label>
       

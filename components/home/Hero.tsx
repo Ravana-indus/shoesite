@@ -1,3 +1,4 @@
+import Link from "next/link";
 'use client';
 
 import { ArrowRight } from 'lucide-react';
@@ -38,16 +39,16 @@ export function Hero() {
 
           {/* CTAs */}
           <div className="mt-10 flex flex-col sm:flex-row gap-4 opacity-0 animate-[fadeInUp_0.6s_ease-out_200ms_forwards]">
-            <a href="/collections/men" className="inline-flex items-center justify-center px-8 py-4 bg-black text-white font-display font-bold uppercase tracking-wide hover:bg-red-600 transition-colors group">
+            <Link href="/collections/men" className="inline-flex items-center justify-center px-8 py-4 bg-black text-white font-display font-bold uppercase tracking-wide hover:bg-red-600 transition-colors group">
               SHOP NOW
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </a>
-            <a 
+            </Link>
+            <Link
               href="/collections/new-arrivals"
               className="inline-flex items-center justify-center px-8 py-4 bg-transparent border-2 border-white text-white font-display font-bold uppercase tracking-wide hover:bg-white hover:text-black transition-colors"
             >
               NEW ARRIVALS
-            </a>
+            </Link>
           </div>
 
           {/* Trust Badges */}
