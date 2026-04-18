@@ -1,6 +1,6 @@
-import Link from "next/link";
 'use client';
 
+import Link from "next/link";
 import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
 import { ProductCard, Product } from '@/components/product/ProductCard';
 import { Button } from '@/components/ui/Button';

@@ -1,6 +1,6 @@
-import Link from "next/link";
 'use client';
 
+import Link from "next/link";
 import { useCart } from './CartProvider';
 import { X, Minus, Plus, ShoppingBag } from 'lucide-react';
 import { formatPriceCents } from '@/lib/types/database';
