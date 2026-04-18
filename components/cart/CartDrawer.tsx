@@ -65,7 +65,7 @@ export function CartDrawer() {
               <p className="font-display font-medium text-xl uppercase tracking-wide text-gray-500">Your cart is empty</p>
               <Button onClick={closeCart} variant="secondary" className="mt-4">
                 Continue Shopping
-              </Button></Link>
+              </Button>
             </div>
           ) : (
             <ul className="space-y-6">
