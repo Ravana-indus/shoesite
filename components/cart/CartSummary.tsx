@@ -1,3 +1,4 @@
+import Link from "next/link";
 'use client';
 
 import { useState } from 'react';
@@ -104,9 +105,9 @@ export function CartSummary({ subtotal, itemCount, onCheckout, promoDiscount = 0
       )}
       
       <div className="mt-4 text-center">
-        <a href="/" className="text-sm text-gray-600 hover:text-black underline">
+        <Link href="/" className="text-sm text-gray-600 hover:text-black underline">
           Continue Shopping
-        </a>
+        </Link>
       </div>
     </div>
   );

@@ -22,6 +22,7 @@ interface ProductVariant {
 }
 
 interface AddToCartFormProps {
+  productId: string;
   variants: ProductVariant[];
   availableForSale: boolean;
 }
@@ -78,7 +79,7 @@ function getColorHex(colorName: string): string {
   return COLOR_MAP[colorName.toLowerCase()] || '#808080';
 }
 
-export function AddToCartForm({ variants, availableForSale }: AddToCartFormProps) {
+export function AddToCartForm({ productId, variants, availableForSale }: AddToCartFormProps) {
   const { addItem, isUpdating } = useCart();
   const [selectedOptions, setSelectedOptions] = useState<Record<string, string>>({});
   const [showSizeGuide, setShowSizeGuide] = useState(false);
@@ -155,7 +156,7 @@ export function AddToCartForm({ variants, availableForSale }: AddToCartFormProps
         return;
       }
       try {
-        await addItem(variant.id, undefined, 1, Number(variant.price?.amount || 0));
+        await addItem(productId, variant.id, 1, Number(variant.price?.amount || 0));
         return;
       } catch (err) {
         console.error(err);
@@ -182,8 +183,8 @@ export function AddToCartForm({ variants, availableForSale }: AddToCartFormProps
     }
 
     try {
-      const productId = selectedVariant.id;
-      const variantId = undefined;
+      // Use the passed productId instead of variant id as the main product ID
+      const variantId = selectedVariant.id;
       const quantity = 1;
       const priceCents = Number(selectedVariant.price?.amount || 0);
       await addItem(productId, variantId, quantity, priceCents);

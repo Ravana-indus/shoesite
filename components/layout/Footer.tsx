@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Facebook, Instagram, Twitter, Youtube } from 'lucide-react';
 import Link from 'next/link';
 
@@ -91,18 +92,18 @@ export function Footer() {
           <div>
             <h3 className="font-display text-lg font-bold uppercase mb-4 text-white">Connect</h3>
             <div className="flex gap-4 mb-4">
-              <a href="#" className="text-gray-300 hover:text-white transition-colors" aria-label="Facebook">
+              <Link href="https://facebook.com/adidaslk" className="text-gray-300 hover:text-white transition-colors" aria-label="Facebook">
                 <Facebook className="w-5 h-5" />
-              </a>
-              <a href="#" className="text-gray-300 hover:text-white transition-colors" aria-label="Instagram">
+              </Link>
+              <Link href="https://instagram.com/adidaslk" className="text-gray-300 hover:text-white transition-colors" aria-label="Instagram">
                 <Instagram className="w-5 h-5" />
-              </a>
-              <a href="#" className="text-gray-300 hover:text-white transition-colors" aria-label="Twitter">
+              </Link>
+              <Link href="https://twitter.com/adidaslk" className="text-gray-300 hover:text-white transition-colors" aria-label="Twitter">
                 <Twitter className="w-5 h-5" />
-              </a>
-              <a href="#" className="text-gray-300 hover:text-white transition-colors" aria-label="YouTube">
+              </Link>
+              <Link href="https://youtube.com/adidaslk" className="text-gray-300 hover:text-white transition-colors" aria-label="YouTube">
                 <Youtube className="w-5 h-5" />
-              </a>
+              </Link>
             </div>
             <p className="text-gray-300 text-sm">
               Email: support@adidaslk.lk<br />

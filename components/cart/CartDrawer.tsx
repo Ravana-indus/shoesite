@@ -1,3 +1,4 @@
+import Link from "next/link";
 'use client';
 
 import { useCart } from './CartProvider';
@@ -64,7 +65,7 @@ export function CartDrawer() {
               <p className="font-display font-medium text-xl uppercase tracking-wide text-gray-500">Your cart is empty</p>
               <Button onClick={closeCart} variant="secondary" className="mt-4">
                 Continue Shopping
-              </Button>
+              </Button></Link>
             </div>
           ) : (
             <ul className="space-y-6">
@@ -150,10 +151,10 @@ export function CartDrawer() {
               <span className="text-2xl font-bold">{formatPriceCents(totalCents)}</span>
             </div>
             <p className="text-xs text-gray-500 mb-6 font-body">Taxes and shipping calculated at checkout.</p>
-            <Button size="lg" className="w-full" disabled={isUpdating}>
+            <Link href="/checkout" className="w-full" onClick={closeCart}><Button size="lg" className="w-full" disabled={isUpdating}>
               <span>Checkout</span>
               <span>{totalQuantity} items</span>
-            </Button>
+            </Button></Link>
           </div>
         )}
       </div>

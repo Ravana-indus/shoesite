@@ -57,6 +57,7 @@ export function ProductCard({ product, className, onAddToCart }: ProductCardProp
         {/* Quick Actions (Wishlist) */}
         <div className="absolute top-3 right-3 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
           <button
+            onClick={(e) => { e.preventDefault(); e.stopPropagation(); /* TODO: Implement wishlist */ }}
             className="p-2.5 bg-white rounded-full shadow hover:bg-gray-100 transition-colors cursor-pointer text-gray-500 hover:text-(--color-accent)"
             aria-label="Add to wishlist"
           >
@@ -67,7 +68,7 @@ export function ProductCard({ product, className, onAddToCart }: ProductCardProp
         {/* Add to Cart Overlay */}
         <div className="absolute inset-x-0 bottom-0 p-4 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 flex justify-center z-10">
           <button
-            onClick={() => onAddToCart?.(product)}
+            onClick={(e) => { e.preventDefault(); e.stopPropagation(); onAddToCart?.(product); }}
             className="flex w-full items-center justify-center gap-2 px-6 py-3 bg-(--color-primary) text-white font-display font-bold uppercase tracking-wide rounded-sm shadow-xl hover:bg-(--color-accent) transition-colors cursor-pointer"
             aria-label="Add to cart"
           >
