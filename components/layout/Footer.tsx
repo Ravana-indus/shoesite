@@ -3,22 +3,23 @@ import Link from 'next/link';
 
 const footerLinks = {
   shop: [
-    { href: '/men', label: "Men's" },
-    { href: '/women', label: "Women's" },
-    { href: '/kids', label: "Kids'" },
-    { href: '/new', label: 'New Arrivals' },
-    { href: '/sale', label: 'Sale' },
+    { href: '/collections/men', label: "Men's" },
+    { href: '/collections/women', label: "Women's" },
+    { href: '/collections/kids', label: "Kids'" },
+    { href: '/collections/accessories', label: 'Accessories' },
+    { href: '/collections/new-arrivals', label: 'New Arrivals' },
   ],
   help: [
     { href: '/contact', label: 'Contact Us' },
-    { href: '/shipping', label: 'Shipping Info' },
+    { href: '/about', label: 'About Us' },
+    { href: '/account/orders', label: 'Track Order' },
     { href: '/returns', label: 'Returns & Exchanges' },
     { href: '/faq', label: 'FAQ' },
   ],
-  about: [
-    { href: '/about', label: 'About Us' },
-    { href: '/authenticity', label: 'Authenticity Guarantee' },
-    { href: '/careers', label: 'Careers' },
+  account: [
+    { href: '/account', label: 'My Account' },
+    { href: '/account/orders', label: 'Order History' },
+    { href: '/wishlist', label: 'Wishlist' },
   ],
 };
 
@@ -71,9 +72,9 @@ export function Footer() {
 
           {/* About */}
           <div>
-            <h3 className="font-display text-lg font-bold uppercase mb-4 text-white">About</h3>
+            <h3 className="font-display text-lg font-bold uppercase mb-4 text-white">Account</h3>
             <ul className="space-y-2">
-              {footerLinks.about.map((link) => (
+              {footerLinks.account.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}

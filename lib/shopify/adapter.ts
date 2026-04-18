@@ -18,6 +18,7 @@ export function mapShopifyProduct(product: ShopifyProduct): UIProduct {
 
   return {
     id: product.id,
+    handle: product.handle || product.id,
     name: product.title,
     price,
     originalPrice: originalPrice && originalPrice > price ? originalPrice : undefined,

@@ -4,10 +4,12 @@ import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
 import { ProductCard, Product } from '@/components/product/ProductCard';
 import { Button } from '@/components/ui/Button';
 import { useRef } from 'react';
+import { useCart } from '@/components/cart/CartProvider';
 
 export const mockNewProducts: Product[] = [
   {
     id: '1',
+    handle: 'ultraboost-22',
     name: 'Ultraboost 22',
     price: 42500,
     image: '/products/ultraboost.jpg',
@@ -16,6 +18,7 @@ export const mockNewProducts: Product[] = [
   },
   {
     id: '2',
+    handle: 'nmd-r1-v3',
     name: 'NMD_R1 V3',
     price: 35000,
     image: '/products/nmd.jpg',
@@ -24,6 +27,7 @@ export const mockNewProducts: Product[] = [
   },
   {
     id: '3',
+    handle: 'stan-smith',
     name: 'Stan Smith',
     price: 18000,
     image: '/products/stan-smith.jpg',
@@ -32,6 +36,7 @@ export const mockNewProducts: Product[] = [
   },
   {
     id: '4',
+    handle: 'forum-low',
     name: 'Forum Low',
     price: 22500,
     image: '/products/forum.jpg',
@@ -40,6 +45,7 @@ export const mockNewProducts: Product[] = [
   },
   {
     id: '5',
+    handle: 'samba-og',
     name: 'Samba OG',
     price: 24000,
     image: '/products/samba.jpg',
@@ -50,6 +56,7 @@ export const mockNewProducts: Product[] = [
 
 export function NewArrivals({ products = [] }: { products?: Product[] }) {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const { addItem } = useCart();
   
   const displayProducts = products.length > 0 ? products : mockNewProducts;
 
@@ -60,6 +67,14 @@ export function NewArrivals({ products = [] }: { products?: Product[] }) {
         left: scrollAmount,
         behavior: 'smooth',
       });
+    }
+  };
+
+  const handleAddToCart = async (product: Product) => {
+    try {
+      await addItem(product.id, undefined, 1, product.price);
+    } catch (error) {
+      console.error('Failed to add to cart:', error);
     }
   };
 
@@ -92,7 +107,7 @@ export function NewArrivals({ products = [] }: { products?: Product[] }) {
               </button>
             </div>
             <div className="hidden lg:block h-12 w-px bg-gray-200 mx-2" />
-            <a href="/new" className="hidden lg:flex items-center text-sm font-display font-bold uppercase tracking-widest hover:text-(--color-accent) transition-colors group">
+            <a href="/collections/new-arrivals" className="hidden lg:flex items-center text-sm font-display font-bold uppercase tracking-widest hover:text-(--color-accent) transition-colors group">
               View All
               <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
             </a>
@@ -107,7 +122,7 @@ export function NewArrivals({ products = [] }: { products?: Product[] }) {
           >
             {displayProducts.map((product) => (
               <div key={product.id} className="flex-none w-[280px] sm:w-[320px] snap-start">
-                <ProductCard product={product} />
+                <ProductCard product={product} onAddToCart={handleAddToCart} />
               </div>
             ))}
             

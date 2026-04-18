@@ -5,24 +5,56 @@ import { Categories } from '@/components/home/Categories';
 import { NewArrivals } from '@/components/home/NewArrivals';
 import { BestSellers } from '@/components/home/BestSellers';
 import { SocialProof } from '@/components/home/SocialProof';
-import { getCollectionProducts } from '@/lib/shopify';
-import { mapShopifyProduct } from '@/lib/shopify/adapter';
-import { Product } from '@/components/product/ProductCard';
+import { getFeaturedProducts, getProducts, getCategories, type Product } from '@/lib/supabase';
+import { formatPriceCents } from '@/lib/types/database';
+
+interface StorefrontProduct {
+  id: string;
+  handle: string;
+  name: string;
+  price: number;
+  originalPrice?: number;
+  image: string;
+  category: string;
+  isNew?: boolean;
+  isBestseller?: boolean;
+  stockRemaining?: number;
+}
+
+function mapProductToStorefront(p: any): StorefrontProduct {
+  const images = p.product_images || [];
+  const image = images[0]?.url || '/placeholder.jpg';
+  const originalPrice = p.compare_at_price_cents || undefined;
+  const price = p.price_cents;
+  const handle = p.handle || p.slug || p.id;
+  
+  return {
+    id: p.id,
+    handle,
+    name: p.name,
+    price,
+    originalPrice,
+    image,
+    category: p.categories?.name || 'Uncategorized',
+    isNew: true,
+    stockRemaining: p.stock_qty,
+  };
+}
 
 export default async function Home() {
-  let newArrivals: Product[] = [];
-  let bestSellers: Product[] = [];
+  let newArrivals: StorefrontProduct[] = [];
+  let bestSellers: StorefrontProduct[] = [];
 
   try {
-    // Attempt to fetch from Shopify, with safe fallbacks if env vars are missing
-    const shopifyNewArrivals = await getCollectionProducts('new-arrivals');
-    const shopifyBestSellers = await getCollectionProducts('best-sellers');
+    // Fetch from Supabase
+    const supabaseProducts = await getProducts({ limit: 10, isActive: true });
+    const featuredProducts = await getFeaturedProducts(8);
+    await getCategories(); // Ensure categories are cached
     
-    // Map to UI interface
-    newArrivals = shopifyNewArrivals.map(mapShopifyProduct).slice(0, 10);
-    bestSellers = shopifyBestSellers.map(mapShopifyProduct).slice(0, 8);
+    newArrivals = supabaseProducts.map(mapProductToStorefront);
+    bestSellers = featuredProducts.map(mapProductToStorefront);
   } catch (error) {
-    console.log('Shopify fetch failed or keys missing, falling back to mock data.', error);
+    console.log('Supabase fetch failed:', error);
   }
 
   return (
@@ -31,8 +63,8 @@ export default async function Home() {
       <main className="flex min-h-[100svh] flex-col">
         <Hero />
         <Categories />
-        <NewArrivals products={newArrivals} />
-        <BestSellers products={bestSellers} />
+        <NewArrivals products={newArrivals as any} />
+        <BestSellers products={bestSellers as any} />
         <SocialProof />
       </main>
       <Footer />

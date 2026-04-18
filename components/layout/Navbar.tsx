@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Menu, X, ShoppingBag, Search, User } from 'lucide-react';
+import { Menu, X, ShoppingBag, Search, User, Heart } from 'lucide-react';
 import Link from 'next/link';
 import { useCart } from '@/components/cart/CartProvider';
 
@@ -10,13 +10,13 @@ const navLinks = [
   { href: '/collections/women', label: "Women's" },
   { href: '/collections/kids', label: "Kids'" },
   { href: '/collections/new-arrivals', label: 'New Arrivals' },
-  { href: '/collections/sale', label: 'Sale' },
+  { href: '/search?q=sale', label: 'Sale' },
 ];
 
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { cart, openCart } = useCart();
-  const cartCount = cart?.totalQuantity || 0;
+  const cartCount = (cart as any)?.totalQuantity || 0;
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100">
@@ -44,12 +44,15 @@ export function Navbar() {
 
           {/* Actions */}
           <div className="flex items-center gap-4">
-            <button className="p-2 hover:bg-gray-100 rounded-full transition-colors cursor-pointer" aria-label="Search">
+            <Link href="/search" className="p-2 hover:bg-gray-100 rounded-full transition-colors cursor-pointer" aria-label="Search">
               <Search className="w-5 h-5" />
-            </button>
-            <button className="p-2 hover:bg-gray-100 rounded-full transition-colors cursor-pointer" aria-label="User Account">
+            </Link>
+            <Link href="/wishlist" className="p-2 hover:bg-gray-100 rounded-full transition-colors cursor-pointer" aria-label="Wishlist">
+              <Heart className="w-5 h-5" />
+            </Link>
+            <Link href="/account" className="p-2 hover:bg-gray-100 rounded-full transition-colors cursor-pointer" aria-label="User Account">
               <User className="w-5 h-5" />
-            </button>
+            </Link>
             <button 
               className="relative p-2 hover:bg-gray-100 rounded-full transition-colors cursor-pointer" 
               aria-label="Shopping Cart"

@@ -10,6 +10,7 @@ export default function AdminLoginPage() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [isSignUp, setIsSignUp] = useState(false);
   const router = useRouter();
   const supabase = createClient();
 
@@ -17,6 +18,26 @@ export default function AdminLoginPage() {
     e.preventDefault();
     setError('');
     setLoading(true);
+
+    if (isSignUp) {
+      const { error: signUpError } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          emailRedirectTo: `${window.location.origin}/admin`,
+        },
+      });
+
+      if (signUpError) {
+        setError(signUpError.message);
+        setLoading(false);
+        return;
+      }
+
+      setError('Check your email for the confirmation link!');
+      setLoading(false);
+      return;
+    }
 
     const { error: signInError } = await supabase.auth.signInWithPassword({
       email,
@@ -29,7 +50,8 @@ export default function AdminLoginPage() {
       return;
     }
 
-    router.push('/admin');
+    const redirectTo = typeof window !== 'undefined' ? new URL(window.location.href).searchParams.get('redirect') : null;
+    router.push(redirectTo || '/admin');
   }
 
   return (
@@ -94,6 +116,29 @@ export default function AdminLoginPage() {
         </div>
 
         <p className="text-center text-xs text-on-surface-variant mt-4">
+          {isSignUp ? (
+            <button
+              type="button"
+              onClick={() => setIsSignUp(false)}
+              className="hover:text-primary transition-colors"
+            >
+              ← Back to Sign In
+            </button>
+          ) : (
+            <>
+              Don't have an account?{' '}
+              <button
+                type="button"
+                onClick={() => setIsSignUp(true)}
+                className="hover:text-primary transition-colors"
+              >
+                Sign Up
+              </button>
+            </>
+          )}
+        </p>
+
+        <p className="text-center text-xs text-on-surface-variant mt-2">
           <a href="/" className="hover:text-primary transition-colors">
             ← Back to Store
           </a>

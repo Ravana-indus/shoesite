@@ -3,6 +3,7 @@ import { Barlow_Condensed, DM_Sans, Noto_Serif } from "next/font/google";
 import "./globals.css";
 import { CartProvider } from "@/components/cart/CartProvider";
 import { CartDrawer } from "@/components/cart/CartDrawer";
+import { MaterialIconsScript } from "@/components/MaterialIconsScript";
 
 const barlow = Barlow_Condensed({
   variable: "--font-barlow",
@@ -44,6 +45,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${barlow.variable} ${dmSans.variable} ${notoSerif.variable}`}>
       <body className="font-body antialiased">
+        <MaterialIconsScript />
         <CartProvider>
           {children}
           <CartDrawer />

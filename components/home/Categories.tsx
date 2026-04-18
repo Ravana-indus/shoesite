@@ -10,28 +10,28 @@ const categories = [
     id: 'men',
     title: "Men's",
     subtitle: 'Running, Training & Lifestyle',
-    href: '/men',
+    href: '/collections/men',
     image: '/images/category-men.png'
   },
   {
     id: 'women',
     title: "Women's",
     subtitle: 'Sportswear & Sneakers',
-    href: '/women',
+    href: '/collections/women',
     image: '/images/category-women.png'
   },
   {
     id: 'kids',
     title: "Kids'",
     subtitle: 'For Young Athletes',
-    href: '/kids',
+    href: '/collections/kids',
     image: '/images/category-kids.png'
   },
   {
     id: 'accessories',
     title: 'Accessories',
     subtitle: 'Bags, Hats & More',
-    href: '/accessories',
+    href: '/collections/accessories',
     image: '/images/category-accessories.png'
   },
 ];

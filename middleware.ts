@@ -2,30 +2,26 @@ import { createClient } from "@/utils/supabase/middleware";
 import { type NextRequest, NextResponse } from "next/server";
 
 export async function middleware(request: NextRequest) {
+  const pathname = request.nextUrl.pathname;
+  
   const supabase = createClient(request);
 
-  // Refresh auth session
   const {
     data: { session },
   } = await supabase.auth.getSession();
 
-  // Guard /admin routes
-  if (request.nextUrl.pathname.startsWith("/admin")) {
-    // Allow /admin/login without auth
-    if (request.nextUrl.pathname === "/admin/login") {
-      // If already logged in, redirect to /admin
-      if (session) {
+  if (pathname.startsWith("/admin")) {
+    if (pathname === "/admin/login" || pathname === "/admin/logout") {
+      if (session && !request.nextUrl.searchParams.has('redirect')) {
         return NextResponse.redirect(new URL("/admin", request.url));
       }
       return NextResponse.next();
     }
 
-    // Require authentication
     if (!session) {
       return NextResponse.redirect(new URL("/admin/login", request.url));
     }
 
-    // Check admin role from profiles table
     const { data: profile } = await supabase
       .from("profiles")
       .select("role")
@@ -33,8 +29,15 @@ export async function middleware(request: NextRequest) {
       .single();
 
     if (!profile || !["admin", "super_admin"].includes(profile.role)) {
-      // Not admin — redirect to storefront home
       return NextResponse.redirect(new URL("/", request.url));
+    }
+  }
+
+  if (pathname.startsWith("/account")) {
+    if (!session) {
+      const redirectUrl = new URL("/login", request.url);
+      redirectUrl.searchParams.set("redirect", pathname);
+      return NextResponse.redirect(redirectUrl);
     }
   }
 
