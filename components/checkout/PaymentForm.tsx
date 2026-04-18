@@ -1,6 +1,6 @@
-import Link from "next/link";
 'use client';
 
+import Link from "next/link";
 import { useState } from 'react';
 import { formatPriceCents } from '@/lib/types/database';
 import { Button } from '@/components/ui/Button';

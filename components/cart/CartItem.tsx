@@ -1,6 +1,6 @@
-import Link from "next/link";
 'use client';
 
+import Link from "next/link";
 import Image from 'next/image';
 import { Minus, Plus, X } from 'lucide-react';
 import { formatPriceCents } from '@/lib/types/database';
